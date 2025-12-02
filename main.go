@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"time"
+
+	"github.com/schollz/progressbar/v3"
 )
 
 func main() {
@@ -19,20 +21,13 @@ func main() {
 
 		total := 50
 
+		bar := progressbar.New(total)
 		for i := 0; i <= total; i++ {
-			percent := (i * 100) / total
-			bar := ""
+			bar.Add(1)
+			time.Sleep(40 * time.Millisecond)
 
-			for j := 0; j < i; j++ {
-				bar += "="
-			}
-			for j := i; j < total; j++ {
-				bar += " "
-			}
-
-			fmt.Printf("\r[%s] %d--", bar, percent)
-
-			time.Sleep(60 * time.Millisecond)
 		}
+		bar.Finish()
 	}
 }
+
